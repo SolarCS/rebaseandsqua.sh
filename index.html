@@ -4,7 +4,7 @@ set -e
 # Get the current branch name.
 branch=`git rev-parse --abbrev-ref HEAD`
 # Determine the commit at which the current branch diverged.
-ancestor=`git merge-base master HEAD`
+ancestor=`git merge-base staging HEAD`
 # Stash any uncommited, changed files.
 git stash
 # Revert the branch back to the ancestor SHA.
@@ -14,9 +14,9 @@ git merge --squash HEAD@{1}
 # Perform the commit, prompting for the message.
 git commit
 # Fetch the latest changes from the upstream branch.
-git fetch origin master
+git fetch origin staging
 # Rebase the current single commit onto the latest.
-git rebase master
+git rebase staging
 # Restore previous uncommited changes, if any.
 git stash pop || true
 
@@ -89,12 +89,12 @@ exit 0 # High five! Everything worked.
   </div>
   <div class="row">
     <div class="col-md-6">
-      <p class="lead">This script will assist you in ensuring that your pull requests are squashed and rebased on the latest <code>master</code>.</p>
+      <p class="lead">This script will assist you in ensuring that your pull requests are squashed and rebased on the latest <code>staging</code>.</p>
     
       <h3>Execution</h3>
       <p>To run, execute the following command in your terminal:</p>
       <pre class="inline"><code class="language-bash">curl rebaseandsqua.sh | sh</code></pre>
-      <p>The script will squash your current work into a single commit, prompt you for a commit message, and then attempt to rebase on the latest changes from <code>master</code>.</p>
+      <p>The script will squash your current work into a single commit, prompt you for a commit message, and then attempt to rebase on the latest changes from <code>staging</code>.</p>
 
       <h3>Under The Hood</h3>
       <p>How does the script work?</p>
